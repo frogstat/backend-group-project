@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Main {
     public static void main(String[] args) {
 
-        Book book = new Book("12345677643", "Gary Trotter", new Author("Tetite Tulipe"));
+        Book book = new Book("12345677643", "Gary Trotter", new Author("Petite Tulipe"));
 
         book.createCopy();
         book.createCopy(LocalDate.of(1992,12,5));
