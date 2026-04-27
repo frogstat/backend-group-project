@@ -14,7 +14,7 @@ public class Borrower {
     private String borrowerName;
     private String email;
 
-    @OneToMany(mappedBy = "borrower")
+    @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans = new ArrayList<>();
 
     public Borrower() {
