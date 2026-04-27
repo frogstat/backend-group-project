@@ -19,7 +19,7 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_isbn"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private List<Author> authors;
+    private Set<Author> authors;
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<BookCopy> copies;
 
@@ -29,7 +29,16 @@ public class Book {
     public Book(String isbn, String title, Author author) {
         this.isbn = isbn;
         this.title = title;
-        this.authors = new ArrayList<>();
+        this.authors = new HashSet<>();
+        authors.add(author);
+        this.copies = new HashSet<>();
+    }
+
+    public Book(String isbn, String title, Set<Author> authors) {
+        this.isbn = isbn;
+        this.title = title;
+        this.authors = new HashSet<>();
+        this.authors.addAll(authors);
         this.copies = new HashSet<>();
     }
 
@@ -57,8 +66,7 @@ public class Book {
     }
 
     public void addAuthor(Author author) {
-        if (!authors.contains(author)) {
-            authors.add(author);
+        if (authors.add(author)) {
             author.addWrittenBook(this);
         }
     }

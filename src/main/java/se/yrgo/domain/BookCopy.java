@@ -16,7 +16,8 @@ public class BookCopy {
     private Book book;
     private LocalDate purchaseDate;
 
-    public BookCopy() {};
+    public BookCopy() {
+    }
 
     public BookCopy(Book book, LocalDate purchaseDate) {
         this.purchaseDate = purchaseDate;
@@ -36,5 +37,4 @@ public class BookCopy {
                         ********************""",
                 book.getTitle(), book.getIsbn(), purchaseDate.toString());
     }
-
 }
