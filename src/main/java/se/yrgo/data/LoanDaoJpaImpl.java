@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Loan;
+import se.yrgo.exception.NotFoundException;
 
 import java.util.List;
 
@@ -39,6 +40,11 @@ public class LoanDaoJpaImpl implements LoanDao {
 
     @Override
     public Loan findById(long id) {
-        return em.find(Loan.class, id);
+        Loan loan = em.find(Loan.class, id);
+
+        if (loan == null) {
+            throw new NotFoundException("No loan found with id: " + id);
+        }
+        return loan;
     }
 }

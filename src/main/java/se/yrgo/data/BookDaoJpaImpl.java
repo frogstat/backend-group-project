@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Book;
+import se.yrgo.exception.NotFoundException;
 
 import java.util.List;
 
@@ -34,7 +35,13 @@ public class BookDaoJpaImpl implements BookDao {
 
     @Override
     public Book findById(String isbn) {
-        return em.find(Book.class, isbn);
+        Book book = em.find(Book.class, isbn);
+
+        if (book == null){
+            throw new NotFoundException("No book found with ISBN: " + isbn);
+        }
+
+        return book;
     }
 
     @Override
