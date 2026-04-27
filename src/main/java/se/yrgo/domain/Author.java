@@ -37,4 +37,12 @@ public class Author {
             book.addAuthor(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return String.format("""
+                ********************
+                Name: %s
+                ********************""", name);
+    }
 }
