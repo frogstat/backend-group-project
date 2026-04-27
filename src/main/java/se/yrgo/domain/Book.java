@@ -27,11 +27,7 @@ public class Book {
     }
 
     public Book(String isbn, String title, Author author) {
-        this.isbn = isbn;
-        this.title = title;
-        this.authors = new HashSet<>();
-        this.authors.add(author);
-        this.copies = new HashSet<>();
+        this(isbn, title, Set.of(author));
     }
 
     public Book(String isbn, String title, Set<Author> authors) {
