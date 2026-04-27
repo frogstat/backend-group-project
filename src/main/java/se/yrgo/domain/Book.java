@@ -20,6 +20,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
     private List<Author> authors;
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<BookCopy> copies;
 
     public Book() {
@@ -41,8 +42,6 @@ public class Book {
     public BookCopy createCopy() {
         LocalDate purchaseDate = LocalDate.now();
         return createCopy(purchaseDate);
-
-
     }
 
     public String getIsbn() {
