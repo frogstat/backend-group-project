@@ -42,6 +42,8 @@ public class UserScreen {
         ClientUtils.printHeader("User Login");
         System.out.print("Email: ");
         System.out.println("Password: ");
+
+        //TODO: check if the user exists in the Borrower table and the password matches!
         return new Borrower("Glenn", "Glenn@glenmail.com", "Nanny11");
     }
 
@@ -50,6 +52,8 @@ public class UserScreen {
         ClientUtils.printHeader("User Register");
         System.out.print("Enter your email: ");
         System.out.print("Enter a password: ");
+
+        //TODO: Create a new borrower in the borrower table
         return new Borrower("Glenn", "Glenn@glenmail.com", "Nanny11");
     }
 

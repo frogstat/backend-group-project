@@ -10,10 +10,11 @@ public class AdministratorScreen {
         ClientUtils.slowText("""
                 [1] Manage books
                 [2] Manage users
-                [3] log out
+                [3] Reset and repopulate database
+                [4] log out
                 """);
 
-        int answer = ClientUtils.inputInt("Your choice: ", List.of(1, 2, 3));
+        int answer = ClientUtils.inputInt("Your choice: ", List.of(1, 2, 3, 4));
     }
 
     private static void manageBooks(){
