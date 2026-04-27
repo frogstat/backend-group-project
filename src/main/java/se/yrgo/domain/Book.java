@@ -1,32 +1,48 @@
 package se.yrgo.domain;
+
 import java.time.LocalDate;
 import java.util.*;
 
-public class Book {
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+public class Book {
+    @Id
     private String isbn;
     private String title;
-    private Author author;
+    @ManyToMany
+    @JoinTable(
+            name = "book_author",
+            joinColumns = @JoinColumn(name = "book_isbn"),
+            inverseJoinColumns = @JoinColumn(name = "author_id")
+    )
+    private List<Author> authors;
     private Set<BookCopy> copies;
 
-    Book(){};
+    public Book() {
+    }
 
     public Book(String isbn, String title, Author author) {
         this.isbn = isbn;
         this.title = title;
-        this.author = author;
+        this.authors = new ArrayList<>();
         this.copies = new HashSet<>();
     }
 
-    public BookCopy createCopy(LocalDate purchaseDate){
+    public BookCopy createCopy(LocalDate purchaseDate) {
         BookCopy copy = new BookCopy(this, purchaseDate);
         copies.add(copy);
         return copy;
     }
 
-    public BookCopy createCopy(){
+    public BookCopy createCopy() {
         LocalDate purchaseDate = LocalDate.now();
         return createCopy(purchaseDate);
+
+
     }
 
     public String getIsbn() {
@@ -37,12 +53,15 @@ public class Book {
         return title;
     }
 
-    public Author getAuthor() {
-        return author;
-    }
-
     public Set<BookCopy> getCopies() {
         return copies;
+    }
+
+    public void addAuthor(Author author) {
+        if (!authors.contains(author)) {
+            authors.add(author);
+            author.addWrittenBook(this);
+        }
     }
 
     public String toString() {
@@ -52,6 +71,9 @@ public class Book {
                 Author: %s
                 Isbn: %s
                 Number of copies: %d
-                ********************""", title, author, isbn, copies.size());
+                ********************""", title, authors, isbn, copies.size());
     }
+
+
 }
+
