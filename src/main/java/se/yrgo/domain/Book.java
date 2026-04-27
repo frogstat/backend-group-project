@@ -19,9 +19,9 @@ public class Book {
             joinColumns = @JoinColumn(name = "book_isbn"),
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<BookCopy> copies;
+    private Set<BookCopy> copies = new HashSet<>();
 
     public Book() {
     }
@@ -33,9 +33,7 @@ public class Book {
     public Book(String isbn, String title, Set<Author> authors) {
         this.isbn = isbn;
         this.title = title;
-        this.authors = new HashSet<>();
         this.authors.addAll(authors);
-        this.copies = new HashSet<>();
     }
 
     public BookCopy createCopy(LocalDate purchaseDate) {
