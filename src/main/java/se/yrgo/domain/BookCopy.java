@@ -25,11 +25,10 @@ public class BookCopy {
         return String.format("""
                         ********************
                         Title: %s
-                        Author: %s
                         ISBN: %s
                         Purchase Date: %s
                         ********************""",
-                book.getTitle(), book.getAuthor(), book.getIsbn(), purchaseDate.toString());
+                book.getTitle(), book.getIsbn(), purchaseDate.toString());
     }
 
 }
