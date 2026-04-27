@@ -30,7 +30,7 @@ public class Book {
         this.isbn = isbn;
         this.title = title;
         this.authors = new HashSet<>();
-        authors.add(author);
+        this.authors.add(author);
         this.copies = new HashSet<>();
     }
 
@@ -71,6 +71,20 @@ public class Book {
         }
     }
 
+    public String getAuthorsAsString() {
+        StringBuilder authorNames = new StringBuilder();
+
+        for (Author author : authors) {
+            authorNames.append(author.getName()).append(", ");
+        }
+
+        if (!authorNames.isEmpty()) {
+            authorNames.setLength(authorNames.length() - 2);
+        }
+
+        return authorNames.toString();
+    }
+
     public String toString() {
         return String.format("""
                 ********************
@@ -78,7 +92,7 @@ public class Book {
                 Author: %s
                 Isbn: %s
                 Number of copies: %d
-                ********************""", title, authors, isbn, copies.size());
+                ********************""", title, getAuthorsAsString(), isbn, copies.size());
     }
 
 
