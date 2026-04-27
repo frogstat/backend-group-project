@@ -2,6 +2,7 @@ package se.yrgo.domain;
 
 import jakarta.persistence.*;
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class Loan {
         this.dueDate = this.loanDate.plusDays(30);
         this.borrower = borrower;
         this.bookCopy = bookCopy;
+
+        this.borrower.getLoans().add(this);
     }
 
     public long getId() {
@@ -42,24 +45,12 @@ public class Loan {
         return loanDate;
     }
 
-    public void setLoanDate(LocalDate loanDate) {
-        this.loanDate = loanDate;
-    }
-
     public LocalDate getReturnDate() {
         return returnDate;
     }
 
-    public void setReturnDate(LocalDate returnDate) {
-        this.returnDate = returnDate;
-    }
-
     public Borrower getBorrower() {
         return borrower;
-    }
-
-    public void setBorrower(Borrower borrower) {
-        this.borrower = borrower;
     }
 
     // -------Metoder-------
@@ -74,8 +65,11 @@ public class Loan {
         return returnDate == null;
     }
 
-    public void extendDueDate(){
+    public void extendDueDate() {
         this.dueDate = this.dueDate.plusDays(14);
     }
 
+    public boolean isLate() {
+        return isActive() && LocalDate.now().isAfter(dueDate);
+    }
 }

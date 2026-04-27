@@ -51,19 +51,15 @@ public class Borrower {
 
     // -------Metoder-------
 
-    public void addLoan(Loan loan) {
-        loans.add(loan);
-        loan.setBorrower(this);
-    }
-
-    public void removeLoan(Loan loan) {
-        loans.remove(loan);
-        loan.setBorrower(null);
-    }
-
     public List<Loan> getActiveLoans() {
         return loans.stream()
-                .filter(loan -> loan.getReturnDate() == null)
+                .filter(Loan::isActive)
+                .toList();
+    }
+
+    public List<Loan> getLateLoans() {
+        return loans.stream()
+                .filter(Loan::isLate)
                 .toList();
     }
 }
