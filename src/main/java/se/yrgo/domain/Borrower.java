@@ -13,6 +13,7 @@ public class Borrower {
 
     private String borrowerName;
     private String email;
+    private String password;
 
     @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans = new ArrayList<>();
@@ -20,9 +21,10 @@ public class Borrower {
     public Borrower() {
     }
 
-    public Borrower(String borrowerName, String email) {
+    public Borrower(String borrowerName, String email, String password) {
         this.borrowerName = borrowerName;
         this.email = email;
+        this.password = password;
     }
 
     public long getId() {
@@ -47,6 +49,10 @@ public class Borrower {
 
     public List<Loan> getLoans() {
         return loans;
+    }
+
+    public void SetPassword(String password) {
+        this.password = password;
     }
 
     // -------Metoder-------
