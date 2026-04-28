@@ -52,8 +52,8 @@ public class LoanServiceImpl implements LoanService {
     }
 
     @Override
-    public void borrowBook(long id, String isbn) {
-        Borrower borrower = borrowerDao.findById(id);
+    public void borrowBook(long borrowerId, String isbn) {
+        Borrower borrower = borrowerDao.findById(borrowerId);
 
         Book book = bookDao.findById(isbn);
         BookCopy availableCopy = book.getCopies().stream()
@@ -70,4 +70,6 @@ public class LoanServiceImpl implements LoanService {
         return loanDao.getAllLoans().stream()
                 .noneMatch(loan -> loan.getBookCopy().equals(copy) && loan.isActive());
     }
+
+
 }
