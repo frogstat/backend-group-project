@@ -3,10 +3,13 @@ package se.yrgo.data;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Book;
 import se.yrgo.exception.NotFoundException;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository

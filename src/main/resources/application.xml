@@ -23,12 +23,13 @@
         <property name="password" value=""/>
     </bean>
 
-    <!-- SPRING FEATURES -->
+    <!-- ANNOTATIONS -->
     <context:annotation-config/>
     <context:component-scan base-package="se.yrgo"/>
 
+
+    <!-- AOP -->
     <aop:aspectj-autoproxy/>
-    <tx:annotation-driven transaction-manager="transactionManager"/>
 
     <!-- JPA ENTITY MANAGER -->
     <bean id="entityManagerFactory"
@@ -44,13 +45,10 @@
                 <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect"/>
             </bean>
         </property>
-
     </bean>
 
     <!-- TRANSACTIONS -->
-    <bean id="transactionManager"
-          class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+          autowire="byName"/>
+    <tx:annotation-driven/>
 </beans>
