@@ -22,9 +22,10 @@ public class BorrowerDaoJpaImpl implements BorrowerDao {
     @Override
     public void deleteById(long id) {
         Borrower borrower = em.find(Borrower.class, id);
-        if (borrower != null) {
-            em.remove(borrower);
+        if (borrower == null) {
+            throw new NotFoundException("No borrower with id " + id + " registered in the database.");
         }
+        em.remove(borrower);
     }
 
     @Override

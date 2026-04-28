@@ -21,9 +21,11 @@ public class LoanDaoJpaImpl implements LoanDao {
     @Override
     public void deleteById(long id) {
         Loan loan = em.find(Loan.class, id);
-        if (loan != null) {
-            em.remove(loan);
+
+        if (loan == null) {
+            throw new NotFoundException("No loan found with id: " + id);
         }
+        em.remove(loan);
     }
 
     @Override

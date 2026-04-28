@@ -1,6 +1,7 @@
 package se.yrgo.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.data.BookDao;
 import se.yrgo.domain.Book;
 import se.yrgo.exception.AlreadyExistsException;
@@ -9,6 +10,7 @@ import se.yrgo.exception.NotFoundException;
 import java.util.List;
 
 @Service
+@Transactional
 public class BookServiceImpl implements BookService {
     private final BookDao bookDao;
 
