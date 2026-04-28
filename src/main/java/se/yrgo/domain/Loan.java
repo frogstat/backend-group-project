@@ -53,6 +53,10 @@ public class Loan {
         return borrower;
     }
 
+    public BookCopy getBookCopy(){
+        return bookCopy;
+    }
+
     // -------Metoder-------
 
     public void returnBook() {

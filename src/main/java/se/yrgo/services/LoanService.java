@@ -14,4 +14,6 @@ public interface LoanService {
     List<Loan> getLateLoans();
 
     Loan findById(long id);
+
+    void borrowBook(long id, String isbn);
 }
