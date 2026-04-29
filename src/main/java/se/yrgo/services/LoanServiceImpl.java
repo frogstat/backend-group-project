@@ -26,15 +26,6 @@ public class LoanServiceImpl implements LoanService {
         this.borrowerDao = borrowerDao;
     }
 
-    @Override
-    public void save(Loan loan) {
-        loanDao.save(loan);
-    }
-
-    @Override
-    public void deleteById(long id) {
-        loanDao.deleteById(id);
-    }
 
     @Override
     public List<Loan> getAllLoans() {
