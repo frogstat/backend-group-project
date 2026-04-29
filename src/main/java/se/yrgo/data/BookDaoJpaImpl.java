@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import se.yrgo.domain.Book;
+import se.yrgo.exception.AlreadyExistsException;
 import se.yrgo.exception.NotFoundException;
 
 import java.util.List;
@@ -22,7 +23,7 @@ public class BookDaoJpaImpl implements BookDao {
 
     @Override
     public void save(Book newBook) {
-        em.merge(newBook);
+        em.persist(newBook);
     }
 
     @Override

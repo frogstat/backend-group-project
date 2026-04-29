@@ -39,7 +39,7 @@ public class BookServiceImpl implements BookService {
         Book book = bookDao.findById(isbn);
 
         if (!book.getCopies().isEmpty()) {
-            throw new AlreadyExistsException("Cannot remove book with existing copies from library.");
+            throw new IllegalStateException("Cannot remove book with existing copies from library.");
         }
         bookDao.deleteById(isbn);
     }

@@ -15,7 +15,7 @@ public class LoanDaoJpaImpl implements LoanDao {
 
     @Override
     public void save(Loan loan) {
-        em.merge(loan);
+        em.persist(loan);
     }
 
     @Override

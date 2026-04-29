@@ -16,7 +16,7 @@ public class BorrowerDaoJpaImpl implements BorrowerDao {
 
     @Override
     public void save(Borrower borrower) {
-        em.merge(borrower);
+        em.persist(borrower);
     }
 
     @Override
