@@ -46,21 +46,15 @@ public class LoanServiceImpl implements LoanService {
     public void borrowBook(long borrowerId, String isbn) {
         Borrower borrower = borrowerDao.findById(borrowerId);
 
-        Book book = bookDao.findById(isbn);
-        BookCopy availableCopy = book.getCopies().stream()
-                .filter(copy -> isCopyAvailable(copy))
+        BookCopy availableCopy = loanDao.getAvailableCopies(isbn)
+                .stream()
                 .findFirst()
-                .orElseThrow(() -> new NoAvailableBookCopiesException("No copy currently available."));
+                .orElseThrow(() ->
+                        new NoAvailableBookCopiesException("No copy  with ISBN  " + isbn + " currently available.")
+                );
 
         Loan loan = new Loan(availableCopy, borrower);
 
         loanDao.save(loan);
     }
-
-    private boolean isCopyAvailable(BookCopy copy) {
-        return loanDao.getAllLoans().stream()
-                .noneMatch(loan -> loan.getBookCopy().equals(copy) && loan.isActive());
-    }
-
-
 }

@@ -3,6 +3,7 @@ package se.yrgo.data;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
+import se.yrgo.domain.BookCopy;
 import se.yrgo.domain.Loan;
 import se.yrgo.exception.NotFoundException;
 
@@ -48,5 +49,20 @@ public class LoanDaoJpaImpl implements LoanDao {
             throw new NotFoundException("No loan found with id: " + id);
         }
         return loan;
+    }
+
+    @Override
+    public List<BookCopy> getAvailableCopies(String isbn) {
+        return em.createQuery("""
+                                    select c from BookCopy c 
+                                    where c.book.isbn = :isbn
+                                    and c.id not in (
+                                        select l.bookCopy.id
+                                        from Loan l 
+                                        where returnDate is null
+                                    )
+                        """, BookCopy.class)
+                .setParameter("isbn", isbn)
+                .getResultList();
     }
 }
