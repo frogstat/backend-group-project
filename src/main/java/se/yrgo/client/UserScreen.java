@@ -1,67 +1,23 @@
 package se.yrgo.client;
 
 import se.yrgo.domain.Borrower;
+import se.yrgo.services.BorrowerService;
 
 import java.util.*;
+
+import static se.yrgo.client.Main.scanner;
+
 
 public class UserScreen {
 
     Borrower currentUser;
 
 
-    public static void loginPage() {
-        ClientUtils.clearScreen();
-        ClientUtils.printHeader("User Login");
-        ClientUtils.slowText("""
-                [1] Log in
-                [2] Register
-                [3] Return
-                """);
-
-        int answer = ClientUtils.inputInt("Your choice: ", List.of(1, 2, 3));
-
-        if (answer == 3) {
-            return;
-        }
-
-        Borrower user = switch (answer) {
-            case 1 -> logIn();
-            case 2 -> register();
-            default -> throw new IllegalStateException("Unexpected value");
-        };
-
-        if (user != null) {
-            UserScreen userScreen = new UserScreen(user);
-            userScreen.userMenu();
-        }
-
-    }
-
-    private static Borrower logIn() {
-        ClientUtils.clearScreen();
-        ClientUtils.printHeader("User Login");
-        System.out.print("Email: ");
-        System.out.println("Password: ");
-
-        //TODO: check if the user exists in the Borrower table and the password matches!
-        return new Borrower("Glenn", "Glenn@glenmail.com", "Nanny11");
-    }
-
-    private static Borrower register() {
-        ClientUtils.clearScreen();
-        ClientUtils.printHeader("User Register");
-        System.out.print("Enter your email: ");
-        System.out.print("Enter a password: ");
-
-        //TODO: Create a new borrower in the borrower table
-        return new Borrower("Glenn", "Glenn@glenmail.com", "Nanny11");
-    }
-
-    private UserScreen(Borrower currentUser) {
+    public UserScreen(Borrower currentUser) {
         this.currentUser = currentUser;
     }
 
-    private void userMenu() {
+    public void userMenu() {
         menuLoop:
         while (true) {
             ClientUtils.clearScreen();
@@ -89,18 +45,18 @@ public class UserScreen {
         ClientUtils.clearScreen();
         ClientUtils.printHeader("User Settings");
         ClientUtils.slowText("""
-                    [1] Change name
-                    [2] Change email
-                    [3] Change password
-                    [4] Return
-                    """);
+                [1] Change name
+                [2] Change email
+                [3] Change password
+                [4] Return
+                """);
         int answer = ClientUtils.inputInt(this.currentUser.getBorrowerName() + "> ", List.of(1, 2, 3, 4));
 
-        if(answer == 4) {
+        if (answer == 4) {
             return;
         }
 
-        String userInfo = switch (answer){
+        String userInfo = switch (answer) {
             case 1 -> "name";
             case 2 -> "email";
             case 3 -> "password";
@@ -110,7 +66,7 @@ public class UserScreen {
         changeUserInfo(userInfo);
     }
 
-    private void changeUserInfo(String userInfo){
+    private void changeUserInfo(String userInfo) {
         ClientUtils.clearScreen();
         ClientUtils.printHeader("Change " + userInfo);
         ClientUtils.slowText("Enter new " + userInfo + ": ");
@@ -149,11 +105,11 @@ public class UserScreen {
         ClientUtils.clearScreen();
         ClientUtils.printHeader("Borrow Book");
         ClientUtils.slowText("""
-                    [1] Find book by title
-                    [2] Find book by author
-                    [3] Find book by ISBN
-                    [4] Return
-                    """);
+                [1] Find book by title
+                [2] Find book by author
+                [3] Find book by ISBN
+                [4] Return
+                """);
         int answer = ClientUtils.inputInt(this.currentUser.getBorrowerName() + "> ", List.of(1, 2, 3, 4));
 
         switch (answer) {

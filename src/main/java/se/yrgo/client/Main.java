@@ -4,6 +4,9 @@ package se.yrgo.client;
 import java.util.*;
 
 public class Main {
+
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         while (true) {
             ClientUtils.clearScreen();
@@ -21,7 +24,7 @@ public class Main {
             }
 
             switch (answer) {
-                case 1 -> UserScreen.loginPage();
+                case 1 -> new UserLoginScreen(null).loginPage();
                 case 2 -> AdministratorScreen.AdminMenu();
             }
         }

@@ -38,6 +38,10 @@ public class BorrowerServiceImpl implements BorrowerService {
 
     @Override
     public Borrower findByEmail(String email) {
-        return borrowerDao.findByEmail(email);
+        try {
+            return borrowerDao.findByEmail(email);
+        } catch ( Exception e) {
+            return null;
+        }
     }
 }
