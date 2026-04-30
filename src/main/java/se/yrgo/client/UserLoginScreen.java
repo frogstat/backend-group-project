@@ -1,6 +1,8 @@
 package se.yrgo.client;
 
 import se.yrgo.domain.Borrower;
+import se.yrgo.exception.IncorrectPasswordException;
+import se.yrgo.exception.NotFoundException;
 import se.yrgo.exception.UserAlreadyExistsException;
 import se.yrgo.services.BorrowerService;
 
@@ -55,11 +57,18 @@ public class UserLoginScreen {
     private Borrower logIn() {
         ClientUtils.clearScreen();
         ClientUtils.printHeader("User Login");
-        System.out.print("Email: ");
-        System.out.print("Password: ");
+        String email = ClientUtils.inputString("Email: ");
+        String password = ClientUtils.inputString("Password: ");
 
-        //TODO: check if the user exists in the Borrower table and the password matches!
-        return new Borrower("Glenn", "Glenn@glenmail.com", "Nanny11");
+        Borrower borrower = borrowerService.findByEmail(email);
+
+        if (borrower == null) {
+            throw new NotFoundException("User with email " + email + " not found!");
+        } else if(!password.equals(borrower.getPassword())){
+            throw new IncorrectPasswordException("Incorrect password!");
+        }
+
+        return borrower;
     }
 
     private Borrower register() {

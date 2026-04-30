@@ -55,6 +55,10 @@ public class Borrower {
         this.password = password;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     // -------Metoder-------
 
     public List<Loan> getActiveLoans() {
