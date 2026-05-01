@@ -15,5 +15,5 @@ public interface LoanService {
 
     void borrowBook(long borrowerId, String isbn);
 
-    //TODO create return book method
+    void returnBook(long borrowerId, long copyId);
 }

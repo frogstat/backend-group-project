@@ -57,4 +57,8 @@ public class LoanServiceImpl implements LoanService {
 
         loanDao.save(loan);
     }
+
+    public void returnBook(long borrowerId, long copy) {
+
+    }
 }
