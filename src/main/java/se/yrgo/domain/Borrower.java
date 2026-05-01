@@ -12,6 +12,8 @@ public class Borrower {
     private long id;
 
     private String borrowerName;
+
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
 

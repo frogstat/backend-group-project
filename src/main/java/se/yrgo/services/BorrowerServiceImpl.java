@@ -1,9 +1,11 @@
 package se.yrgo.services;
 
+import jakarta.persistence.PersistenceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.data.BorrowerDao;
 import se.yrgo.domain.Borrower;
+import se.yrgo.exception.UserAlreadyExistsException;
 
 import java.util.List;
 
@@ -23,7 +25,11 @@ public class BorrowerServiceImpl implements BorrowerService {
 
     @Override
     public void save(Borrower borrower) {
-        borrowerDao.save(borrower);
+        try {
+            borrowerDao.save(borrower);
+        } catch (PersistenceException e){
+            throw new UserAlreadyExistsException("User with email " + borrower.getEmail() + " already exists");
+        }
     }
 
     @Override

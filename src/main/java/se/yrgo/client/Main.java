@@ -24,7 +24,7 @@ public class Main {
             }
 
             switch (answer) {
-                case 1 -> new UserLoginScreen(null).loginPage();
+                case 1 -> new UserLoginScreen().loginPage();
                 case 2 -> AdministratorScreen.AdminMenu();
             }
         }

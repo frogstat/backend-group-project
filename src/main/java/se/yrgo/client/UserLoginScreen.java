@@ -1,5 +1,6 @@
 package se.yrgo.client;
 
+import org.springframework.context.support.AbstractXmlApplicationContext;
 import se.yrgo.domain.Borrower;
 import se.yrgo.exception.IncorrectPasswordException;
 import se.yrgo.exception.NotFoundException;
@@ -14,8 +15,8 @@ public class UserLoginScreen {
 
     BorrowerService borrowerService;
 
-    public UserLoginScreen(BorrowerService borrowerService) {
-        this.borrowerService = borrowerService;
+    public UserLoginScreen() {
+        borrowerService = SpringContext.getBean(BorrowerService.class);
     }
 
     public void loginPage() {
@@ -46,10 +47,9 @@ public class UserLoginScreen {
                 continue;
             }
 
-            if (user != null) {
-                UserScreen userScreen = new UserScreen(user);
-                userScreen.userMenu();
-            }
+            UserScreen userScreen = new UserScreen(user);
+            userScreen.userMenu();
+
         }
 
     }
@@ -64,7 +64,7 @@ public class UserLoginScreen {
 
         if (borrower == null) {
             throw new NotFoundException("User with email " + email + " not found!");
-        } else if(!password.equals(borrower.getPassword())){
+        } else if (!password.equals(borrower.getPassword())) {
             throw new IncorrectPasswordException("Incorrect password!");
         }
 
@@ -104,10 +104,6 @@ public class UserLoginScreen {
                 continue;
             }
             break;
-        }
-
-        if (borrowerService.findByEmail(email) != null) {
-            throw new UserAlreadyExistsException("User with email " + email + "already exists.");
         }
 
         Borrower newBorrower = new Borrower(name, email, password);
