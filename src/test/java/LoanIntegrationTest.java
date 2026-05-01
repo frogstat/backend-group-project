@@ -6,18 +6,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 import se.yrgo.data.BookDao;
 import se.yrgo.data.BorrowerDao;
-import se.yrgo.domain.Author;
-import se.yrgo.domain.BookCopy;
-import se.yrgo.domain.Borrower;
-import se.yrgo.domain.Book;
+import se.yrgo.domain.*;
 import se.yrgo.exception.NoAvailableBookCopiesException;
 import se.yrgo.services.LoanService;
 import se.yrgo.services.LoanServiceImpl;
 
 import java.time.LocalDate;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = "classpath:application.xml")
@@ -42,7 +39,13 @@ public class LoanIntegrationTest {
 
         loanService.borrowBook(borrower.getId(), book.getIsbn());
 
-        assertEquals(1, loanService.getAllLoans().size());
+        List<Loan> loans = loanService.getAllLoans();
+        assertEquals(1, loans.size());
+
+        Loan loan = loans.get(0);
+        assertEquals(borrower.getId(), loan.getBorrower().getId());
+        assertEquals(book.getIsbn(), loan.getBookCopy().getBook().getIsbn());
+        assertTrue(loan.isActive());
     }
 
     @Test
@@ -50,10 +53,14 @@ public class LoanIntegrationTest {
         Borrower borrower = createBorrower();
 
         Book book = new Book("2736352819283", "Gardening for cuties", new Author("Da Gardening Expert"));
+
         bookDao.save(book);
+
         assertThrows(NoAvailableBookCopiesException.class, () -> {
             loanService.borrowBook(borrower.getId(), book.getIsbn());
         });
+
+        assertEquals(0, loanService.getAllLoans().size());
     }
 
     private Borrower createBorrower() {
