@@ -29,7 +29,7 @@ public class UserScreen {
         this.loanService = SpringContext.getBean(LoanService.class);
 
         this.currentUser = currentUser;
-        prompt = prompt;
+        prompt = this.currentUser.getBorrowerName() + "> ";
     }
 
     public void userMenu() {
