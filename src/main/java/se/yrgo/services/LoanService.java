@@ -15,5 +15,5 @@ public interface LoanService {
 
     void borrowBook(long borrowerId, String isbn);
 
-    void returnBook(long borrowerId, long copyId);
+    void returnBook(long loanId);
 }

@@ -58,7 +58,16 @@ public class LoanServiceImpl implements LoanService {
         loanDao.save(loan);
     }
 
-    public void returnBook(long borrowerId, long copy) {
+    @Override
+    public void returnBook(long loanId) {
+        Loan loan = loanDao.findById(loanId);
 
+        if (loan.getReturnDate() != null) {
+            throw new IllegalStateException("Book already returned");
+        }
+
+        loan.returnBook();
+
+        loanDao.save(loan);
     }
 }

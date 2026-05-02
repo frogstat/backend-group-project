@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sat May 02 13:43:03 CEST 2026:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-019d-e87f-cc2e-000001b505c8 
+on database directory /mnt/c/users/gusta/OneDrive/Dokument/BackendProgrammering/backend-grupp-pro/libraryDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@639fee48 
+Loaded from file:/home/gustav/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=Ubuntu
+java.runtime.version=21.0.10+7-Ubuntu-124.04
+user.dir=/mnt/c/users/gusta/OneDrive/Dokument/BackendProgrammering/backend-grupp-pro
+os.name=Linux
+os.arch=amd64
+os.version=6.6.87.2-microsoft-standard-WSL2
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
