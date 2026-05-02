@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class BookCopy {
@@ -15,6 +16,9 @@ public class BookCopy {
     @JoinColumn(name = "book_isbn")
     private Book book;
     private LocalDate purchaseDate;
+
+    @OneToMany (mappedBy = "")
+    private List<Loan> loans;
 
     public BookCopy() {
     }
@@ -37,5 +41,9 @@ public class BookCopy {
                         Purchase Date: %s
                         ********************""",
                 book.getTitle(), book.getAuthorsAsString() ,book.getIsbn(), purchaseDate.toString());
+    }
+
+    public List<Loan> getLoans() {
+        return loans;
     }
 }

@@ -23,6 +23,7 @@ public class Loan {
 
     // ?
     @ManyToOne
+    @JoinColumn(name = "bookCopy_id")
     private BookCopy bookCopy;
 
     public Loan() {

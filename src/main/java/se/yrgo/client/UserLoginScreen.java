@@ -1,5 +1,6 @@
 package se.yrgo.client;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractXmlApplicationContext;
 import se.yrgo.domain.Borrower;
 import se.yrgo.exception.IncorrectPasswordException;
@@ -88,6 +89,13 @@ public class UserLoginScreen {
             break;
         }
 
+        String password = passWordEntry();
+        Borrower newBorrower = new Borrower(name, email, password);
+        borrowerService.save(newBorrower);
+        return newBorrower;
+    }
+
+    private String passWordEntry(){
         String password;
         while (true) {
             System.out.print("Enter a new password: ");
@@ -105,9 +113,6 @@ public class UserLoginScreen {
             }
             break;
         }
-
-        Borrower newBorrower = new Borrower(name, email, password);
-        borrowerService.save(newBorrower);
-        return newBorrower;
+        return password;
     }
 }

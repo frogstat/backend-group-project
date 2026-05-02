@@ -41,14 +41,8 @@ public class ClientUtils {
 
     public static String inputString(String prompt) {
         String input;
-        while (true) {
-            System.out.print(prompt);
-            input = scanner.nextLine();
-            if (input.isEmpty()) {
-                continue;
-            }
-            break;
-        }
+        System.out.print(prompt);
+        input = scanner.nextLine();
         return input;
     }
 
